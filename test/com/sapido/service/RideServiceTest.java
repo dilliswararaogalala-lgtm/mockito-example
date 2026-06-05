@@ -305,7 +305,8 @@ public class RideServiceTest {
         when(paymentService.processPayment(anyString(), anyDouble())).thenReturn(true);
 
         // Act: only request a ride, don't accept or complete
-        rideService.requestRide(passenger, pickup, dropoff);
+        Ride ride = rideService.requestRide(passenger, pickup, dropoff);
+        rideService.acceptRide(ride.getId(), driver);
 
         // Assert: verify payment service was never called
         Mockito.verifyNoInteractions(paymentService);
